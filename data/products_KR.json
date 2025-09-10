@@ -1,0 +1,162 @@
+[
+  {
+    "sku": "KR-001",
+    "title": "Samsung Galaxy S24 Ultra",
+    "brand": "Samsung",
+    "price": 1599000,
+    "currency": "KRW",
+    "buy_url": "https://www.samsung.com/sec/smartphones/galaxy-s24-ultra/"
+  },
+  {
+    "sku": "KR-002",
+    "title": "Apple iPhone 15 Pro",
+    "brand": "Apple",
+    "price": 1550000,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-003",
+    "title": "KR Sample 3",
+    "brand": "Brand",
+    "price": 10003,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-004",
+    "title": "KR Sample 4",
+    "brand": "Brand",
+    "price": 10004,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-005",
+    "title": "KR Sample 5",
+    "brand": "Brand",
+    "price": 10005,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-006",
+    "title": "KR Sample 6",
+    "brand": "Brand",
+    "price": 10006,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-007",
+    "title": "KR Sample 7",
+    "brand": "Brand",
+    "price": 10007,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-008",
+    "title": "KR Sample 8",
+    "brand": "Brand",
+    "price": 10008,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-009",
+    "title": "KR Sample 9",
+    "brand": "Brand",
+    "price": 10009,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-010",
+    "title": "KR Sample 10",
+    "brand": "Brand",
+    "price": 10010,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-011",
+    "title": "KR Sample 11",
+    "brand": "Brand",
+    "price": 10011,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-012",
+    "title": "KR Sample 12",
+    "brand": "Brand",
+    "price": 10012,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-013",
+    "title": "KR Sample 13",
+    "brand": "Brand",
+    "price": 10013,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-014",
+    "title": "KR Sample 14",
+    "brand": "Brand",
+    "price": 10014,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-015",
+    "title": "KR Sample 15",
+    "brand": "Brand",
+    "price": 10015,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-016",
+    "title": "KR Sample 16",
+    "brand": "Brand",
+    "price": 10016,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-017",
+    "title": "KR Sample 17",
+    "brand": "Brand",
+    "price": 10017,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-018",
+    "title": "KR Sample 18",
+    "brand": "Brand",
+    "price": 10018,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-019",
+    "title": "KR Sample 19",
+    "brand": "Brand",
+    "price": 10019,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  },
+  {
+    "sku": "KR-020",
+    "title": "KR Sample 20",
+    "brand": "Brand",
+    "price": 10020,
+    "currency": "KRW",
+    "buy_url": "https://www.apple.com/kr/iphone-15-pro/"
+  }
+]
