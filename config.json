@@ -1,0 +1,7 @@
+{
+  "mode": "strict",
+  "requireRealImage": true,
+  "requireBuyUrl": true,
+  "autoRefreshMs": 120000,
+  "ogResolver": "/api/og?url={u}"
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>쇼핑 LIVE · strict v11.2 (128개국+OG Resolver)</title>
+<link rel="stylesheet" href="./styles.css"/></head><body>
+<div class="topbar"><div class="topbar-inner">
+  <div class="brand">쇼핑 LIVE</div>
+  <div class="menu"></div>
+  <div class="tools">
+    <div class="selects"><span class="badge">국가</span><select id="country"></select></div>
+    <div class="search"><input id="search" placeholder="상품명 검색"/></div>
+    <div class="badge">장바구니 <span class="count">0</span></div>
+  </div>
+</div></div>
+<div class="subbar"><div class="countrybar" id="countrybar"></div></div>
+<div class="container">
+  <section class="controls">
+    <button class="btn" id="refresh">실시간 새로고침</button>
+    <div class="badge">표시: <span id="resultCount">0</span>개</div>
+    <button class="btn" id="toggleAuto">자동새로고침: ON</button>
+    <button class="btn" id="diagnose">진단 패널</button>
+  </section>
+  <section class="grid" id="grid"></section>
+  <footer>© 2025 Strict v11.2 · 6대주/128개국 · 데모이미지 없음</footer>
+</div>
+<script defer src="./app.js"></script></body></html>
