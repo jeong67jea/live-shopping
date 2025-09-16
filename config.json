@@ -1,7 +1,41 @@
 {
-  "mode": "strict",
-  "requireRealImage": true,
-  "requireBuyUrl": true,
-  "autoRefreshMs": 120000,
-  "ogResolver": "/api/og?url={u}"
+  "hideDiag": true,
+  "autoRefreshSeconds": 0,
+  "useProxyOG": true,
+  "catalogApi": "/api/top?country=",
+  "selectors": {
+    "grid": "#grid, #cards, [data-role=\"grid\"], .cards",
+    "diag": "#diag, .diag, [data-role=\"diag\"]",
+    "count": "#count, .count, [data-role=\"count\"]",
+    "search": "#q, #search, input[type=\"search\"], [data-role=\"search\"]",
+    "continent": "#continent, [data-role=\"continent\"]",
+    "countryBadges": "[data-iso2], [data-country]"
+  },
+  "continents": [
+    {
+      "id": "AS",
+      "name": "아시아"
+    },
+    {
+      "id": "EU",
+      "name": "유럽"
+    },
+    {
+      "id": "NA",
+      "name": "북아메리카"
+    },
+    {
+      "id": "SA",
+      "name": "남아메리카"
+    },
+    {
+      "id": "AF",
+      "name": "아프리카"
+    },
+    {
+      "id": "OC",
+      "name": "오세아니아"
+    }
+  ],
+  "defaultCountry": "KR"
 }
