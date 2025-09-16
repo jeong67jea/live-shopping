@@ -1,32 +1,77 @@
-export async function onRequestGet(context) {
-  const url = new URL(context.request.url);
-  const target = url.searchParams.get('url');
-  if(!target) return new Response(JSON.stringify({error:'missing url'}),{status:400,headers:{'content-type':'application/json'}});
-  try{
-    const r = await fetch(target, {headers:{'user-agent':'Mozilla/5.0 (compatible; LiveShopBot/1.0)'}});
-    const html = await r.text();
-    const base = new URL(target);
-    function abs(p){ if(!p) return ''; if(p.startsWith('//')) return base.protocol+p; if(p.startsWith('/')) return base.origin+p; return p; }
-    const metas=[
-      /<meta[^>]+(?:property|name)=["']og:image(?::secure_url)?["'][^>]+content=["']([^"']+)["']/i,
-      /<meta[^>]+name=["']twitter:image(?::src)?["'][^>]+content=["']([^"']+)["']/i,
-      /<meta[^>]+itemprop=["']image["'][^>]+content=["']([^"']+)["']/i,
-      /<link[^>]+rel=["']image_src["'][^>]+href=["']([^"']+)["']/i
-    ];
-    for(const re of metas){ const m=html.match(re); if(m){ return new Response(JSON.stringify({image:abs(m[1])}), {headers:{'content-type':'application/json'}}); } }
-    const imgs=[...html.matchAll(/<img[^>]+>/gi)].map(x=>x[0]);
-    let best='', score=0;
-    for(const tag of imgs){
-      const m = tag.match(/\s(?:data-src|data-original|src)=["']([^"']+)["']/i);
-      if(!m) continue;
-      let src = abs(m[1].trim());
-      const w = +(tag.match(/\s(?:data-width|width)=["']?(\d+)/i)||[])[1]||0;
-      const h = +(tag.match(/\s(?:data-height|height)=["']?(\d+)/i)||[])[1]||0;
-      const s = w*h;
-      if(s>score){ score=s; best=src; }
-    }
-    return new Response(JSON.stringify({image:best||''}), {headers:{'content-type':'application/json'}});
-  }catch(e){
-    return new Response(JSON.stringify({image:''}), {headers:{'content-type':'application/json'}});
+export async function onRequest(context) {
+  const { request } = context;
+  const url = new URL(request.url);
+  const u = url.searchParams.get('u');
+  if (!u) return new Response(JSON.stringify({ error: 'missing u' }), { status: 400, headers: cors() });
+
+  // 서버에서 대상 페이지를 받아 og:image 추출
+  try {
+    const res = await fetch(u, { redirect: 'follow' });
+    const html = await res.text();
+    const img = extractOg(html) || extractLD(html) || extractFirstImg(html) || '';
+    return json({ image_url: absolutize(img, u) });
+  } catch (e) {
+    return json({ image_url: '' });
   }
+}
+
+function cors() {
+  return {
+    'content-type': 'application/json; charset=utf-8',
+    'access-control-allow-origin': '*',
+    'access-control-allow-methods': 'GET,OPTIONS'
+  };
+}
+function json(obj, status=200) { return new Response(JSON.stringify(obj), { status, headers: cors() }); }
+
+function absolutize(u, baseURL) {
+  if (!u) return '';
+  try {
+    if (/^https?:\/\//i.test(u)) return u;
+    if (u.startsWith('//')) return new URL(baseURL).protocol + u;
+    const base = new URL(baseURL);
+    if (u.startsWith('/')) return base.origin + u;
+    const path = base.pathname.replace(/\/[^/]*$/, '/');
+    return base.origin + path + u.replace(/^\.\//,'');
+  } catch { return u; }
+}
+function extractOg(html) {
+  const res = html.match(/<meta[^>]+property=[\"']og:image[\"'][^>]*content=[\"']([^\"']+)[\"']/i);
+  const res2 = html.match(/<meta[^>]+property=[\"']og:image:secure_url[\"'][^>]*content=[\"']([^\"']+)[\"']/i);
+  const res3 = html.match(/<meta[^>]+name=[\"']twitter:image[\"'][^>]*content=[\"']([^\"']+)[\"']/i);
+  return (res && res[1]) || (res2 && res2[1]) || (res3 && res3[1]) || '';
+}
+function extractLD(html) {
+  const blocks = html.match(/<script[^>]+type=[\"']application\/ld\+json[\"'][^>]*>([\s\S]*?)<\/script>/gi) || [];
+  for (const b of blocks) {
+    try {
+      const jsonTxt = b.replace(/^[\s\S]*?>/,'').replace(/<\/script>[\s\S]*$/,'').trim();
+      const data = JSON.parse(jsonTxt);
+      const img = deepFindImage(data);
+      if (img) return img;
+    } catch {}
+  }
+  return '';
+}
+function deepFindImage(data) {
+  if (!data || typeof data !== 'object') return '';
+  if (typeof data.image === 'string') return data.image;
+  if (data.image && typeof data.image === 'object') {
+    if (typeof data.image.url === 'string') return data.image.url;
+    if (Array.isArray(data.image) && data.image.length) {
+      const first = data.image[0];
+      if (typeof first === 'string') return first;
+      if (first && typeof first.url === 'string') return first.url;
+    }
+  }
+  for (const k of Object.keys(data)) {
+    const v = data[k];
+    const r = deepFindImage(v);
+    if (r) return r;
+  }
+  return '';
+}
+function extractFirstImg(html) {
+  const m = html.match(/<img[^>]+src=[\"']([^\"']+)[\"']/i);
+  return (m && m[1]) || '';
 }
