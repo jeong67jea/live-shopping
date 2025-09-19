@@ -1,28 +1,21 @@
-<!DOCTYPE html><html lang="ko"> 
-  <style>#diag{display:none!important}</style>
-  <script src="app.js?v=nav-20250917"></script>
-  <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>쇼핑 LIVE · strict v11.2 (128개국+OG Resolver)</title>
-<link rel="stylesheet" href="./styles.css"/></head><body>
-<div class="topbar"><div class="topbar-inner">
-  <div class="brand">쇼핑 LIVE</div>
-  <div class="menu"></div>
-  <div class="tools">
-    <div class="selects"><span class="badge">국가</span><select id="country"></select></div>
-    <div class="search"><input id="search" placeholder="상품명 검색"/></div>
-    <div class="badge">장바구니 <span class="count">0</span></div>
-  </div>
-</div></div>
-<div class="subbar"><div class="countrybar" id="countrybar"></div></div>
-<div class="container">
-  <section class="controls">
-    <button class="btn" id="refresh">실시간 새로고침</button>
-    <div id="count" class="toolbar-count">표시: <span id="count" class="chip chip--gray">0</span>개</div>
-    <button class="btn" id="toggleAuto">자동새로고침: ON</button>
-    <button class="btn" id="diagnose">진단 패널</button>
-  </section>
-  <section class="grid" id="grid"></section>
-  <footer>© 2025 Strict v11.2 · 6대주/128개국 · 데모이미지 없음</footer>
-</div>
-<script defer src="./app.js"></script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>쇼핑 LIVE · strict v11.2</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body{max-width:1280px;margin:0 auto;padding:16px;background:#f7f9fc}
+    header{display:flex;align-items:center;gap:10px;margin:4px 0 8px}
+    header h1{font-size:20px;margin:0}
+  </style>
+</head>
+<body>
+  <header><h1>쇼핑 LIVE</h1></header>
+  <!-- app.js가 상단 툴바/국가 배지/그리드를 "자동 생성"합니다 -->
+
+  <!-- 절대경로 금지, 캐시 무력화용 쿼리 필수 -->
+  <script src="app.js?v=nav-20250918"></script>
+</body>
+</html>
