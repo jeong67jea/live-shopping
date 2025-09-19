@@ -6,17 +6,71 @@
   <title>쇼핑 LIVE · strict v11.2</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    body{max-width:1280px;margin:0 auto;padding:16px;background:#f7f9fc}
+    body{max-width:1280px;margin:0 auto;padding:16px;background:#f7f9fc;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,sans-serif}
     header{display:flex;align-items:center;gap:10px;margin:4px 0 8px}
     header h1{font-size:20px;margin:0}
+    #bootlog{white-space:pre-wrap;font:12px ui-monospace,Menlo,Consolas,monospace;background:#0b1020;color:#bde4ff;padding:10px;border-radius:8px;margin:12px 0;display:none}
+    #bootlog.error{display:block;border:1px solid #ff5570;color:#ffe6ea}
   </style>
 </head>
 <body>
   <header><h1>쇼핑 LIVE</h1></header>
-  <!-- app.js가 상단 툴바/국가 배지/그리드를 자동 생성합니다 -->
 
-  <!-- 상대경로 + 캐시버전(중요) -->
-  <script src="app.js?v=nav-20250918"></script>
+  <div id="bootlog" class="error">부팅 로그...</div>
+
+  <script>
+  (async function safeBoot(){
+    const log = (m)=>{ const el=document.getElementById('bootlog'); el.classList.add('error'); el.style.display='block'; el.textContent += (el.textContent?'\n':'') + m; console.warn(m); };
+
+    // 1) 필수 파일 존재/상태 확인
+    async function ping(url){
+      try{
+        const r = await fetch(url, {cache:'no-store'}); 
+        return {ok:r.ok, status:r.status, url:r.url, text: await r.text().catch(()=>''), headers: r.headers};
+      }catch(e){ return {ok:false, status:'ERR', err:String(e)}; }
+    }
+
+    const must = [
+      'app.js?v=boot-1',
+      'config.json',
+      'countries.json',
+      'data/products_KR.json'
+    ];
+
+    for(const u of must){
+      const r = await ping(u);
+      if(!r.ok){
+        log(`❌ ${u} → ${r.status} (로드 실패). 경로/대소문자/브랜치/배치 확인 필요`);
+      }else{
+        log(`✅ ${u} → ${r.status}`);
+      }
+    }
+
+    // 2) app.js 동적 로드 (로드 실패/구문오류를 화면에 표기)
+    await new Promise((resolve)=>{
+      const s = document.createElement('script');
+      s.src = 'app.js?v=boot-1';
+      s.async = true;
+      s.onload = ()=>{ log('✅ app.js 로드 성공'); resolve(); };
+      s.onerror = ()=>{ log('❌ app.js 로드 실패(경로/대소문자 오류 가능)'); resolve(); };
+      document.body.appendChild(s);
+    });
+
+    // 3) 2초 후에도 그리드가 없으면 초기화 안 된 것 → 흔한 원인 안내
+    setTimeout(()=>{
+      const grid = document.querySelector('#grid, .cards, [data-role="grid"]');
+      if(!grid){
+        log('⚠️ UI가 생성되지 않았습니다. 가능한 원인:');
+        log('- app.js 구문오류(첫줄에서 중단) → DevTools Console 에러 확인');
+        log('- countries.js 같은 외부 스크립트 에러 → index.html에서 제거');
+        log('- 절대경로 사용(/assets, /api 등) → /live-shopping/ 기준 상대경로로 수정');
+        log('- 캐시 문제 → 주소 끝에 ?v=임의값 추가 후 강력 새로고침(Shift+F5)');
+      }else{
+        const el=document.getElementById('bootlog'); el.textContent='OK: UI 생성됨'; setTimeout(()=>{ el.remove(); }, 1200);
+      }
+    }, 2000);
+  })();
+  </script>
 </body>
 </html>
 
