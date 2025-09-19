@@ -2,7 +2,7 @@
   "hideDiag": true,
   "autoRefreshSeconds": 0,
   "useProxyOG": true,
-  "catalogApi": "/api/top?country=",
+  "catalogApi": "",
   "selectors": {
     "grid": "#grid, #cards, [data-role=\"grid\"], .cards",
     "diag": "#diag, .diag, [data-role=\"diag\"]",
