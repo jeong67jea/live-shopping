@@ -12,30 +12,12 @@
     "countryBadges": "[data-iso2], [data-country]"
   },
   "continents": [
-    {
-      "id": "AS",
-      "name": "아시아"
-    },
-    {
-      "id": "EU",
-      "name": "유럽"
-    },
-    {
-      "id": "NA",
-      "name": "북아메리카"
-    },
-    {
-      "id": "SA",
-      "name": "남아메리카"
-    },
-    {
-      "id": "AF",
-      "name": "아프리카"
-    },
-    {
-      "id": "OC",
-      "name": "오세아니아"
-    }
+    {"id":"AS","name":"아시아"},
+    {"id":"EU","name":"유럽"},
+    {"id":"NA","name":"북아메리카"},
+    {"id":"SA","name":"남아메리카"},
+    {"id":"AF","name":"아프리카"},
+    {"id":"OC","name":"오세아니아"}
   ],
   "defaultCountry": "KR"
 }
