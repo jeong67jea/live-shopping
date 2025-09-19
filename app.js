@@ -59,7 +59,21 @@
       const m=t.match(/<img[^>]+src=["']([^"']+)["']/i); if(m&&m[1]){ const abs=absolutize(m[1],pageUrl); OG.set(pageUrl,abs); return abs; }
     }catch{} OG.set(pageUrl,''); return '';
   }
-  function deepFindImage(d){ const arr=Array.isArray(d)?d:[d]; for(const o of arr){ if(!o||typeof o!=='object') continue; if(typeof o.image==='string') return o.image; if(o.image&&typeof o.image==='object'){ if(typeof o.image.url==='string') return o.image.url; if(Array.isArray(o.image)&&o.image.length){ const f=o.image[0]; if(typeof f==='string') return f; if(f&&typeof f.url==='string') return f.url; } } for(const k of Object.keys(o)){ const v=o[k]; if(v&&typeof v==='object'){ const r=deepFindImage(v); if(r) return r; } } } return '';
+  function deepFindImage(d){
+    const arr=Array.isArray(d)?d:[d];
+    for(const o of arr){
+      if(!o||typeof o!=='object') continue;
+      if(typeof o.image==='string') return o.image;
+      if(o.image&&typeof o.image==='object'){
+        if(typeof o.image.url==='string') return o.image.url;
+        if(Array.isArray(o.image)&&o.image.length){
+          const f=o.image[0]; if(typeof f==='string') return f; if(f&&typeof f.url==='string') return f.url;
+        }
+      }
+      for(const k of Object.keys(o)){ const v=o[k]; if(v&&typeof v==='object'){ const r=deepFindImage(v); if(r) return r; } }
+    }
+    return '';
+  }
   function wrapHttp(u){ return /^http:\/\//i.test(u) ? 'https://images.weserv.nl/?url='+encodeURIComponent(u.replace(/^http:\/\//,'')) : u; }
   const PLACEHOLDERS=['./assets/placeholder.png','/live-shopping/assets/placeholder.png','/assets/placeholder.png','/placeholder.png'];
   function nextPh(curr){ const i=PLACEHOLDERS.indexOf(curr); return PLACEHOLDERS[(i+1)%PLACEHOLDERS.length]; }
@@ -264,5 +278,4 @@
     window.LiveShopping = { render:(iso)=>renderApp(cfg, iso||country), resolveImage, cfg };
   });
 })();
-
-})();
+)();
